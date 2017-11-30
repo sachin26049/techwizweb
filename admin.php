@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>ADMIN</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -115,8 +115,27 @@ a {
   <br>  
   <a href="#" onclick="openMenu()">Manage Menu</a>
   <a href="#">View Feedback</a>
-  <a href="#" style="margin-bottom:80px">View Orders</a>
+  <a href="?run" style="margin-bottom:80px">View Orders</a>
   </div>
+  <?php
+  if(isset($_GET['run']))
+  {
+  require 'connection.php';
+
+    //echo "<script>alert($n);</script>";
+    //$sql = "SELECT o.order_id,o.user_id,oi.item_id,f.food_name FROM food f,order o, order_info oi WHERE f.food_id=oi.item_id and o.order_id=oi.order_id";
+    $sqlq="SELECT * FROM order";
+    $resu = mysqli_query($conn,$sqlq) or die(mysqli_error());
+    echo "<script>alert($resu);</script>";
+    if($row=mysqli_fetch_array($resu))
+    {
+    //echo "id: " . $row['order_id']. " - Name: " . $row['food_name"]. " " . $row["user_id"]. "<br>";
+    }
+    //if(!$res) echo "<script>alert('Removing unsuccessful Error: ');</script>";
+    else echo "<script>alert('Removed successful');</script>";
+    //echo"<script>window.open('admin.php','_self')</script>";
+  }
+  ?>
   <div style="margin-left:10%;margin-top:10%;mrgin-right:5%">
   <div class="container" id="menu" Style="visibility:hidden;width:100%;height:100%;
   position: absolute;
@@ -169,17 +188,25 @@ a {
 <div class="row">
 	<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#remove" data-parent="#menu" 
 	style="font-size:20px;padding-right:15%;margin-bottom:5%;width:250px; margin-left:20%">Remove Food Item</button>
-  <div id="remove" class="collapse" Style="margin-left:10%">
-    <form action="#" method="post">
-	<div class="form-group" Style="padding-right:10%;padding-left:5%">
-      <label for="name" style="color:white">Name:</label>
-      <input type="text" class="form-control" id="name" placeholder="Enter Name of food" name="name" style="Background-color:white;" required>
-    </div>
-	    <button type="submit" class="btn btn-default" 
-Style="padding-right:10%;padding-left:10%; margin-bottom:10%;font-size:20px;margin-bottom:2%;margin-left:20%">Submit</button>
-
-</form>
-  </div>      
+ <form action="remove.php" method="post">
+ <div id="remove" class="collapse" Style="margin-left:10%;margin-right:10%;">
+  <label for="name" style="color:white">Food Name:</label>
+    <select name="to_user" id="to_user" class="form-control">
+<?php
+require 'connection.php';
+$sql = mysqli_query($conn, "SELECT food_name From food");
+$row = mysqli_num_rows($sql);
+while ($row = mysqli_fetch_array($sql)){
+echo "<option value='". $row['food_name'] ."'>" .$row['food_name'] ."</option>" ;
+}
+?>
+</select>
+<button type="submit" class="btn btn-default" 
+Style="padding-right:10%;padding-left:10%; margin-bottom:10%;font-size:20px;margin-bottom:2%;margin-left:20%;margin-top:20px;">Submit</button>
+    
+	    
+  </div>
+  </form>
   </div>  
   <div class="row">
 	<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#update" data-parent="#menu" 
