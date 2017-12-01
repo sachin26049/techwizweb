@@ -149,6 +149,18 @@ a {
 	<span style="font-size:30px;cursor:pointer;color:white;float:left" onclick="openNav()">&#9776;</span>
 	<div class="row" style="margin-top:20%">
 	
+	<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#foodtype" data-parent="#menu" 
+	style="font-size:20px;padding-right:10%;
+        margin-top:5%;width:250px;margin-bottom:5%;margin-left:20%">Add Food Type</button>
+    <div id="foodtype" class="collapse" Style="margin-left:10%">
+    <form action="addtype.php" method="post">
+	<div class="form-group" Style="padding-right:10%;padding-left:5%">
+      <label for="type" style="color:white">Type:</label>
+      <input type="text" class="form-control" id="type" placeholder="Enter The type" name="type" style="Background-color:white;" required>
+    </div>
+	<button type="submit" class="btn btn-default" Style="padding-right:10%;padding-left:10%; margin-bottom:10%;font-size:20px;margin-left:20%">Submit</button>
+  </form>
+  </div>
 	<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#add" data-parent="#menu" 
 	style="font-size:20px;padding-right:10%;
         margin-top:5%;width:250px;margin-bottom:5%;margin-left:20%">Add Food Item</button>
